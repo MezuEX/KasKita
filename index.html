@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KasKita</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/all.css" integrity="sha512-ajhUYg8JAATDFejqbeN7KbF2zyPbbqz04dgOLyGcYEk/MJD3V+HJhJLKvJ2VVlqrr4PwHeGTTWxbI+8teA7snw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style type="text/css" media="all">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .dark-mode #data-form input[type='date'],
+        .dark-mode #data-form input[type='text'],
+        .dark-mode #data-form input[type='number'] {
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #555;
+            border-radius: 5px;
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .dark-mode header {
+            background: #1c1c1c;
+            color: #ffffff;
+        }
+
+        .dark-mode .sidebar {
+            background: #1c1c1c;
+            color: #ffffff;
+        }
+
+        .dark-mode #form-section,
+        .dark-mode #data-section,
+        .dark-mode #total-section,
+        .dark-mode #total-section p {
+            background: #222;
+            color: #ffffff;
+        }
+
+        .dark-mode #total-section p:nth-child(3) {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .dark-mode table {
+            border: 1px solid #333;
+        }
+
+        .dark-mode th,
+        .dark-mode td {
+            border-bottom: 1px solid #333;
+        }
+
+        .dark-mode th {
+            background-color: #333;
+        }
+
+        #dark-mode-toggle {
+            padding: 10px 15px;
+            background-color: #555;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #dark-mode-toggle:hover {
+            background-color: #666;
+            transform: scale(1.05);
+        }
+
+        #dark-mode-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .dark-mode #dark-mode-toggle {
+            background-color: #333;
+            color: #ddd;
+        }
+
+        .dark-mode tr:hover {
+            background-color: #444;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            right: -250px;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: right 0.3s ease;
+        }
+
+        .sidebar.show {
+            right: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sidebar-header h1 {
+            color: white;
+            margin: 0;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            border-bottom: 1px solid #555;
+        }
+
+        .sidebar ul li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .content {
+            margin-top: 60px; /* Adjust this value based on the height of your header */
+            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .sidebar-toggle {
+            position: absolute;
+            top: 25px;
+            right: 20px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .sidebar-toggle i {
+            font-size: 20px;
+        }
+
+        @media screen and (max-width:560px) {
+            .sidebar {
+                width: 200px;
+            }
+            #data-table {
+                font-size: 8px;
+            }
+        }
+
+        .next-button {
+            margin-top: 8em;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .next-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>KasKita</h1>
+        <span class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-align-justify"></i></span>
+    </header>
+    
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>Menu</h1>
+            <span class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></span>
+        </div>
+        <ul>
+            <li><button id="dark-mode-toggle">Dark Mode</button></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1>Project Informatika</h1>
+        <h2>KasKita</h2>
+    </div>
+    <a href="https://mezuex.github.io/KasKita-absen/" class="next-button">Halaman Berikutnya</a>
+  
+    <script type="text/javascript" charset="utf-8">
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const sidebarItems = document.querySelectorAll('.sidebar ul li a');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+
+        // Toggle sidebar visibility
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.remove('show');
+        });
+
+        sidebarItems.forEach(item => {
+            item.addEventListener('click', () => {
+                sidebar.classList.remove('show');
+            });
+        });
+
+        // Dark mode functionality
+        function setDarkMode(isDark) {
+            if (isDark) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+
+// Load dark mode preference
+        const darkMode = localStorage.getItem('darkMode');
+        if (darkMode === 'enabled') {
+            setDarkMode(true);
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            const isDark = body.classList.contains('dark-mode');
+            setDarkMode(!isDark);
+        });
+    </script>
+</body>
+</html>

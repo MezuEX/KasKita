@@ -27,12 +27,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         header {
             background: #333;
             color: #fff;
-            padding: 10px 0;
+            padding: 15px 30px;
             text-align: center;
             display: flex;
             justify-content: space-between;
@@ -40,10 +41,13 @@
             position: fixed;
             top: 0;
             left: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s, color 0.3s;
         }
 
         header h1 {
             margin: 0;
+            font-size: 1.5rem;
         }
 
         .dark-mode #data-form input[type='date'],
@@ -137,6 +141,7 @@
             background-color: #333;
             overflow-x: hidden;
             transition: right 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .sidebar.show {
@@ -146,6 +151,8 @@
         .sidebar-header {
             padding: 20px;
             text-align: center;
+            background-color: #444;
+            border-bottom: 1px solid #555;
         }
 
         .sidebar-header h1 {
@@ -172,6 +179,7 @@
             color: #fff;
             text-decoration: none;
             display: block;
+            transition: background-color 0.3s;
         }
 
         .sidebar ul li a:hover {
@@ -187,11 +195,12 @@
         }
 
         .content {
-            margin-top: 60px; /* Adjust this value based on the height of your header */
+            margin-top: 80px; /* Adjust this value based on the height of your header */
             padding: 20px;
             width: 100%;
             max-width: 800px;
             text-align: center;
+            transition: margin-top 0.3s;
         }
 
         .sidebar-toggle {
@@ -225,10 +234,16 @@
             cursor: pointer;
             text-decoration: none;
             font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         .next-button:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .next-button:active {
+            transform: scale(0.95);
         }
     </style>
 </head>
@@ -250,6 +265,7 @@
     <div class="content">
         <h1>Project Informatika</h1>
         <h2>KasKita</h2>
+        <p>Selamat datang di KasKita, platform modern untuk manajemen keuangan dan absensi. KasKita membantu Anda mengelola kas secara efisien, mencatat kehadiran dengan mudah, dan memastikan semua data keuangan Anda terorganisir dengan baik. Kami berkomitmen untuk menyediakan alat yang intuitif dan mudah digunakan untuk mempermudah pekerjaan Anda sehari-hari. Mulailah dengan menjelajahi fitur-fitur kami dan nikmati kemudahan yang ditawarkan oleh KasKita.</p>
     </div>
     <a href="https://mezuex.github.io/KasKita-absen/" class="next-button">Halaman Berikutnya</a>
   
@@ -287,7 +303,7 @@
             }
         }
 
-// Load dark mode preference
+        // Load dark mode preference
         const darkMode = localStorage.getItem('darkMode');
         if (darkMode === 'enabled') {
             setDarkMode(true);
